@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,6 +20,7 @@ public class DrawerDataAdapter extends RecyclerView.Adapter<DrawerDataAdapter.My
     List<DrawerListData> data = Collections.EMPTY_LIST;
 
     public DrawerDataAdapter(Context context, List<DrawerListData> data) {
+        this.context = context;
         inflator = LayoutInflater.from(context);
         this.data = data;
     }
@@ -44,7 +46,7 @@ public class DrawerDataAdapter extends RecyclerView.Adapter<DrawerDataAdapter.My
     }
 
 
-    class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView title;
         ImageView icon;
@@ -54,7 +56,13 @@ public class DrawerDataAdapter extends RecyclerView.Adapter<DrawerDataAdapter.My
 
             title = (TextView) itemView.findViewById(R.id.listText);
             icon = (ImageView) itemView.findViewById(R.id.listIcon);
+
+            title.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View v) {
+            Toast.makeText(context, "Item Clicked at " + getAdapterPosition(), Toast.LENGTH_LONG).show();
+        }
     }
 }
